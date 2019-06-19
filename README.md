@@ -32,6 +32,8 @@ export FLASK_ENV=development
 
 # To run the server, enter below command
 flask run
+OR
+python run.py
 
 # Deactivate virtualenv
 deactivate
