@@ -11,5 +11,7 @@ class Middleware(object):
         url = request.url
         method = request.method
         print("path: %s, url: %s, method: %s" % (path, url, method))
-        
+
+        # just do here everything what you need
+
         return self.app(environ, start_response)
