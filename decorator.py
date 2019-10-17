@@ -1,16 +1,28 @@
 from functools import wraps
+from flask import request, Response
 
-def home_decorator():
-    def _home_decorator(f):
+import requests
+import json
+
+def authorization_required():
+    def _authorization_required(f):
         @wraps(f)
-        def __home_decorator(*args, **kwargs):
-
+        def __authorization_required(*args, **kwargs):
+            # Access passed request value using request - flask's request object
+            path = request.path
+            url = request.url
+            method = request.method
             # just do here everything what you need
-
-            print('before home')
-            result = f(*args, **kwargs)
-            print('home result: %s' % result)
-            print('after home')
-            return result
-        return __home_decorator
-    return _home_decorator
+            # Add condition if needed and do needful
+            # Validate for Authorization.
+            is_authorised = False
+            # For Unauthorized access return the Response
+            if is_authorised:
+                result = f(*args, **kwargs)
+                return result
+            else:
+                return Response(json.dumps({'Message' : 'You are not Authorised for this operation'}),
+                    status=403, \
+                    mimetype="application/json")
+        return __authorization_required
+    return _authorization_required

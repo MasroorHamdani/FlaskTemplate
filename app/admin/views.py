@@ -1,9 +1,13 @@
-from flask import Blueprint
+from flask import Blueprint, Response
 import decorator as decorator
+import json
 
 mod = Blueprint('admin', __name__)
 
 @mod.route('/')
-@decorator.home_decorator()
+@decorator.authorization_required()
 def index():
-    return 'Hello world!!!'
+    return Response(json.dumps({'Message' : 'Hello World'}),
+        status=200, \
+        mimetype="application/json")
+    # return 'hello world'
